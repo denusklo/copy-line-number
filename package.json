@@ -1,0 +1,57 @@
+{
+  "name": "copy-line-number",
+  "displayName": "Copy Line Number",
+  "description": "Copies the current line number to the clipboard.",
+  "version": "0.0.1",
+  "publisher": "denusklo",
+  "engines": {
+    "vscode": "^1.102.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/denusklo/copy-line-number"
+  },
+  "bugs": {
+    "url": "https://github.com/denusklo/copy-line-number/issues"
+  },
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "copy-line-number.copyLineNumber",
+        "title": "Copy Current Line Number"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "copy-line-number.copyLineNumber",
+        "key": "ctrl+alt+l",
+        "mac": "cmd+alt+l",
+        "when": "editorTextFocus"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.102.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "typescript-eslint": "^8.48.1",
+    "eslint": "^9.39.1",
+    "typescript": "^5.9.3",
+    "@vscode/test-cli": "^0.0.12",
+    "@vscode/test-electron": "^2.5.2"
+  }
+}
