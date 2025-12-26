@@ -2,7 +2,7 @@
   "name": "copy-line-number",
   "displayName": "Copy Line Number",
   "description": "Copies the current line number to the clipboard.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "denusklo",
   "engines": {
     "vscode": "^1.102.0"

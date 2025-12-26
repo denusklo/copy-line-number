@@ -5,6 +5,8 @@ A simple VS Code extension that copies the current line number to the clipboard.
 ## Features
 
 - Copy the current line number with a single keyboard shortcut
+- **Multiple cursors support**: When multiple cursors are placed, all line numbers are copied
+- Copies in format `line X` (e.g., `line 828`) for easy reference
 - Works with any file type
 - Shows a brief status bar message confirming the copy action
 
@@ -26,6 +28,23 @@ You can also use the command palette:
 3. Press Enter
 
 The line number (1-based, as displayed in the editor) will be copied to your clipboard, ready to paste anywhere.
+
+### Examples
+
+**Single cursor:**
+```
+line 828
+```
+
+**Multiple cursors** (2 cursors on lines 1 and 4):
+```
+line 1 and line 4
+```
+
+**Multiple cursors** (4 cursors on lines 1, 2, 4, 928):
+```
+line 1, line 2, line 4 and line 928
+```
 
 ## Requirements
 

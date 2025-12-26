@@ -11,17 +11,30 @@ export function activate(context: vscode.ExtensionContext) {
         const editor = vscode.window.activeTextEditor;
 
         if (editor) {
-            // 2. Get the cursor position (selection.active)
-            const lineNumber = editor.selection.active.line;
+            // 2. Get all cursor positions (handles multiple cursors)
+            const lineNumbers = editor.selections.map(s => s.active.line + 1); // Convert to 1-based
 
-            // 3. Convert to 1-based index (what you see in the gutter)
-            const displayLineNumber = lineNumber + 1;
+            // 3. Get unique sorted line numbers
+            const uniqueLines = [...new Set(lineNumbers)].sort((a, b) => a - b);
 
-            // 4. Write to clipboard
-            vscode.env.clipboard.writeText(String(displayLineNumber))
+            // 4. Format the output
+            let textToCopy: string;
+            if (uniqueLines.length === 1) {
+                textToCopy = `line ${uniqueLines[0]}`;
+            } else if (uniqueLines.length === 2) {
+                textToCopy = `line ${uniqueLines[0]} and line ${uniqueLines[1]}`;
+            } else {
+                // Join all but last with commas, then add "and" before last
+                const allButLast = uniqueLines.slice(0, -1).map(n => `line ${n}`).join(', ');
+                const last = `line ${uniqueLines[uniqueLines.length - 1]}`;
+                textToCopy = `${allButLast} and ${last}`;
+            }
+
+            // 5. Write to clipboard
+            vscode.env.clipboard.writeText(textToCopy)
                 .then(() => {
                     // Show a success message in status bar (auto-dismisses after 2 seconds)
-                    vscode.window.setStatusBarMessage(`Line ${displayLineNumber} copied`, 2000);
+                    vscode.window.setStatusBarMessage(`${uniqueLines.length} line(s) copied`, 2000);
                 });
         } else {
             vscode.window.showWarningMessage("No active editor to copy line number from.");
